@@ -1,0 +1,6 @@
+<script setup lang="ts">
+import {reactive} from 'vue'
+import {useQualityExports} from '../../../hooks/useQualityExports'
+import {time} from '../../../shared/types'
+const vm=reactive(useQualityExports())
+</script><template><a-card title="导出管理"><template #extra><a-button @click="vm.load" :loading="vm.loading">刷新</a-button></template><a-alert v-if="vm.error" :message="vm.error" type="error" show-icon /><a-table :data-source="vm.rows" :loading="vm.loading" row-key="id" :pagination="{current:vm.current,total:vm.total,pageSize:20,showSizeChanger:false}" @change="(p:{current?:number})=>{vm.current=p.current||1;vm.load()}"><a-table-column title="文件名" data-index="name" /><a-table-column title="创建时间" key="time"><template #default="{record}">{{time(record.createTime)}}</template></a-table-column><a-table-column title="状态" key="status"><template #default="{record}">{{['排队中','生成中','已完成','失败'][record.status]}}</template></a-table-column><a-table-column title="工单数" data-index="workOrderCount" /><a-table-column title="数据行数" data-index="recordCount" /><a-table-column title="失败原因" data-index="failureReason" /><a-table-column title="操作" key="actions"><template #default="{record}"><a-button :disabled="record.status!==2" :loading="vm.downloading===record.id" type="link" @click="vm.download(record)">下载</a-button></template></a-table-column></a-table></a-card></template>
