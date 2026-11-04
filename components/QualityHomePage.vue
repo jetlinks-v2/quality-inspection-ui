@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {reactive} from 'vue'
-import JEcharts from '@jetlinks-web-core/components/Echarts'
+import JEcharts from '@jetlinks-web-core/components/Echarts/Echarts.vue'
 import {useQualityHome} from '../hooks/useQualityHome'
 import {qualityText as qt} from '../shared/i18n'
 const vm=reactive(useQualityHome())

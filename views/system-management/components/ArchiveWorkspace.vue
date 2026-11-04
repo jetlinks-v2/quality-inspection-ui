@@ -2,7 +2,7 @@
 import { computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Space } from '../../../api/system-management/archive'
-import { FullPage } from '@jetlinks-web-core/layout'
+import FullPage from '@jetlinks-web-core/layout/FullPage.vue'
 import { onlyMessage } from '@jetlinks-web/utils'
 import { useArchiveScope } from '../../../hooks/system-management/archive/useArchiveScope'
 const { t } = useI18n()

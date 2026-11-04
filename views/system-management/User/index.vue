@@ -2,7 +2,7 @@
 import { computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { onlyMessage } from '@jetlinks-web/utils'
-import { FullPage } from '@jetlinks-web-core/layout'
+import FullPage from '@jetlinks-web-core/layout/FullPage.vue'
 import ConditionFilter from '@jetlinks-web-core/components/ConditionFilter'
 import type { ConditionTerm } from '@jetlinks-web-core/components/ConditionFilter'
 import { useUserList } from '../../../hooks/system-management/useUserList'
