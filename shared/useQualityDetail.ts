@@ -1,3 +1,4 @@
+import {qualityText as qt} from './i18n'
 import {computed,ref} from 'vue'
 import type {QualityClient} from './client'
 import {messageOf,type Action,type CheckRecord,type Context,type Detail,type Person,type Result} from './types'
@@ -24,11 +25,11 @@ export function useQualityDetail(api:QualityClient){
  const submit=async(draft=false)=>{
   if(!data.value||saving.value)return;saving.value=true;error.value=''
   try{
-   if(!draft&&action.value==='inspect'&&results.value.some(r=>r.isQualified===0)&&!assigneeIds.value.length)throw Error('请选择整改人')
+   if(!draft&&action.value==='inspect'&&results.value.some(r=>r.isQualified===0)&&!assigneeIds.value.length)throw Error(qt('selectARectifier'))
    const request:Action={version:data.value.workOrder.version,results:results.value,assigneeIds:assigneeIds.value,recordIds:recordIds.value,description:description.value}
    if(['submit','pass','reject','rectReassign'].includes(action.value))await api.rectAction(rectificationId.value,action.value==='rectReassign'?'reassign':action.value,request)
    else await api.orderAction(data.value.workOrder.id,draft?'draft':action.value,request)
-   const id=data.value.workOrder.id;success.value=draft?'草稿已保存':'操作成功';if(!draft)close();await load(id)
+   const id=data.value.workOrder.id;success.value=draft?qt('draftSaved'):qt('operationCompleted');if(!draft)close();await load(id)
   }catch(e){error.value=messageOf(e)}finally{saving.value=false}
  }
  const record=(id:string)=>data.value?.records.find(r=>r.id===id)

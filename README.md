@@ -9,7 +9,7 @@
 ```sh
 pnpm install --frozen-lockfile
 pnpm exec vue-tsc --noEmit -p modules/quality-inspection-ui/tsconfig.json
-pnpm -F jetlinks-web-core build -- --module-name quality-inspection-ui,saas-runtime-ui,authentication-manager-ui
+pnpm -F jetlinks-web-core build -- --module-name quality-inspection-ui,saas-runtime-ui,authentication-manager-ui,device-manager-ui,edge-master-ui,jetlinks-media-ui
 ```
 
 构建输出为宿主 `dist/` 完整站点；登录、应用上下文和菜单复用 SaaS。仅指定 `quality-inspection-ui` 会生成模块资源，不是完整站点。

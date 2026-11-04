@@ -15,7 +15,14 @@
         ]
       }
     ],
-    "buttons": []
+    "buttons": [],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "品质首页",
+        "en_US": "Quality overview",
+        "en": "Quality overview"
+      }
+    }
   },
   {
     "id": "quality-Configuration-Company",
@@ -44,7 +51,12 @@
               "save"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "保存",
+          "en_US": "Save",
+          "en": "Save"
+        }
       },
       {
         "id": "delete",
@@ -56,9 +68,21 @@
               "delete"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "删除",
+          "en_US": "Delete",
+          "en": "Delete"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "公司基础配置",
+        "en_US": "Company configuration",
+        "en": "Company configuration"
+      }
+    }
   },
   {
     "id": "quality-Template-Company",
@@ -87,7 +111,12 @@
               "save"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "保存",
+          "en_US": "Save",
+          "en": "Save"
+        }
       },
       {
         "id": "delete",
@@ -99,9 +128,21 @@
               "delete"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "删除",
+          "en_US": "Delete",
+          "en": "Delete"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "公司任务模板",
+        "en_US": "Company task templates",
+        "en": "Company task templates"
+      }
+    }
   },
   {
     "id": "quality-Tasks-Company",
@@ -130,7 +171,12 @@
               "save"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "保存",
+          "en_US": "Save",
+          "en": "Save"
+        }
       },
       {
         "id": "issue",
@@ -142,7 +188,12 @@
               "issue"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "下发",
+          "en_US": "Issue",
+          "en": "Issue"
+        }
       },
       {
         "id": "close",
@@ -154,7 +205,12 @@
               "close"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "关闭",
+          "en_US": "Close",
+          "en": "Close"
+        }
       },
       {
         "id": "delete",
@@ -166,9 +222,21 @@
               "delete"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "删除",
+          "en_US": "Delete",
+          "en": "Delete"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "公司核查任务",
+        "en_US": "Company inspection tasks",
+        "en": "Company inspection tasks"
+      }
+    }
   },
   {
     "id": "quality-Records-Company",
@@ -197,7 +265,12 @@
               "inspect"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "核查",
+          "en_US": "Inspect",
+          "en": "Inspect"
+        }
       },
       {
         "id": "rectify",
@@ -209,7 +282,12 @@
               "rectify"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "整改",
+          "en_US": "Rectify",
+          "en": "Rectify"
+        }
       },
       {
         "id": "review",
@@ -221,7 +299,12 @@
               "review"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "复验",
+          "en_US": "Review",
+          "en": "Review"
+        }
       },
       {
         "id": "dispatch",
@@ -233,7 +316,12 @@
               "dispatch"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "指派",
+          "en_US": "Assign",
+          "en": "Assign"
+        }
       },
       {
         "id": "reassign",
@@ -245,7 +333,12 @@
               "reassign"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "转派",
+          "en_US": "Reassign",
+          "en": "Reassign"
+        }
       },
       {
         "id": "transferRepair",
@@ -257,7 +350,12 @@
               "transferRepair"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "转报修",
+          "en_US": "Create repair",
+          "en": "Create repair"
+        }
       },
       {
         "id": "export",
@@ -269,9 +367,21 @@
               "export"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "导出",
+          "en_US": "Export",
+          "en": "Export"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "公司核查记录",
+        "en_US": "Company inspection records",
+        "en": "Company inspection records"
+      }
+    }
   },
   {
     "id": "quality-Reports-Company",
@@ -300,9 +410,21 @@
               "export"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "导出",
+          "en_US": "Export",
+          "en": "Export"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "公司报表",
+        "en_US": "Company reports",
+        "en": "Company reports"
+      }
+    }
   },
   {
     "id": "quality-Configuration-Project",
@@ -331,7 +453,12 @@
               "save"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "保存",
+          "en_US": "Save",
+          "en": "Save"
+        }
       },
       {
         "id": "delete",
@@ -343,9 +470,21 @@
               "delete"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "删除",
+          "en_US": "Delete",
+          "en": "Delete"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "项目基础配置",
+        "en_US": "Project configuration",
+        "en": "Project configuration"
+      }
+    }
   },
   {
     "id": "quality-Template-Project",
@@ -374,7 +513,12 @@
               "save"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "保存",
+          "en_US": "Save",
+          "en": "Save"
+        }
       },
       {
         "id": "delete",
@@ -386,9 +530,21 @@
               "delete"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "删除",
+          "en_US": "Delete",
+          "en": "Delete"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "项目任务模板",
+        "en_US": "Project task templates",
+        "en": "Project task templates"
+      }
+    }
   },
   {
     "id": "quality-Tasks-Project",
@@ -417,7 +573,12 @@
               "save"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "保存",
+          "en_US": "Save",
+          "en": "Save"
+        }
       },
       {
         "id": "issue",
@@ -429,7 +590,12 @@
               "issue"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "下发",
+          "en_US": "Issue",
+          "en": "Issue"
+        }
       },
       {
         "id": "close",
@@ -441,7 +607,12 @@
               "close"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "关闭",
+          "en_US": "Close",
+          "en": "Close"
+        }
       },
       {
         "id": "delete",
@@ -453,9 +624,21 @@
               "delete"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "删除",
+          "en_US": "Delete",
+          "en": "Delete"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "项目核查任务",
+        "en_US": "Project inspection tasks",
+        "en": "Project inspection tasks"
+      }
+    }
   },
   {
     "id": "quality-Records-Project",
@@ -484,7 +667,12 @@
               "inspect"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "核查",
+          "en_US": "Inspect",
+          "en": "Inspect"
+        }
       },
       {
         "id": "rectify",
@@ -496,7 +684,12 @@
               "rectify"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "整改",
+          "en_US": "Rectify",
+          "en": "Rectify"
+        }
       },
       {
         "id": "review",
@@ -508,7 +701,12 @@
               "review"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "复验",
+          "en_US": "Review",
+          "en": "Review"
+        }
       },
       {
         "id": "dispatch",
@@ -520,7 +718,12 @@
               "dispatch"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "指派",
+          "en_US": "Assign",
+          "en": "Assign"
+        }
       },
       {
         "id": "reassign",
@@ -532,7 +735,12 @@
               "reassign"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "转派",
+          "en_US": "Reassign",
+          "en": "Reassign"
+        }
       },
       {
         "id": "transferRepair",
@@ -544,7 +752,12 @@
               "transferRepair"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "转报修",
+          "en_US": "Create repair",
+          "en": "Create repair"
+        }
       },
       {
         "id": "export",
@@ -556,9 +769,21 @@
               "export"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "导出",
+          "en_US": "Export",
+          "en": "Export"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "项目核查记录",
+        "en_US": "Project inspection records",
+        "en": "Project inspection records"
+      }
+    }
   },
   {
     "id": "quality-Reports-Project",
@@ -587,9 +812,21 @@
               "export"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "导出",
+          "en_US": "Export",
+          "en": "Export"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "项目报表",
+        "en_US": "Project reports",
+        "en": "Project reports"
+      }
+    }
   },
   {
     "id": "quality-Evaluation",
@@ -618,7 +855,12 @@
               "save"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "保存",
+          "en_US": "Save",
+          "en": "Save"
+        }
       },
       {
         "id": "delete",
@@ -630,9 +872,21 @@
               "delete"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "删除",
+          "en_US": "Delete",
+          "en": "Delete"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "评分评价",
+        "en_US": "Score ratings",
+        "en": "Score ratings"
+      }
+    }
   },
   {
     "id": "quality-Settings",
@@ -661,9 +915,21 @@
               "save"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "保存",
+          "en_US": "Save",
+          "en": "Save"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "应用设置",
+        "en_US": "Application settings",
+        "en": "Application settings"
+      }
+    }
   },
   {
     "id": "quality-Exports",
@@ -692,9 +958,21 @@
               "export"
             ]
           }
-        ]
+        ],
+        "i18nMessages": {
+          "zh_CN": "导出",
+          "en_US": "Export",
+          "en": "Export"
+        }
       }
-    ]
+    ],
+    "i18nMessages": {
+      "name": {
+        "zh_CN": "导出管理",
+        "en_US": "Export management",
+        "en": "Export management"
+      }
+    }
   },
   {
     "id": "quality-system-basic",
