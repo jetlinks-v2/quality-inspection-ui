@@ -1,5 +1,10 @@
 {
   "name": "quality-inspection-ui",
   "version": "2.20.0",
-  "private": true
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter jetlinks-web-core dev -- --module-name quality-inspection-ui,property-base-ui,authentication-manager-ui",
+    "build": "pnpm --filter jetlinks-web-core build -- --module-name quality-inspection-ui",
+    "build:with-base": "pnpm --filter jetlinks-web-core build -- --module-name quality-inspection-ui,property-base-ui"
+  }
 }
