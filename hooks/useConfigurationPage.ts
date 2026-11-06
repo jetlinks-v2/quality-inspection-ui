@@ -7,7 +7,7 @@ import {messageOf,type Configuration} from '../shared/types'
 import {useQualityAccess} from './useQualityAccess'
 const configKinds=computed(()=>[{value:'category',label:qt('businessSector')},{value:'line',label:qt('inspectionLine')},{value:'subject',label:qt('subject')},{value:'content',label:qt('checkRequirements')},{value:'inspection-content',label:qt('inspectionContentConfiguration')},{value:'business-type',label:qt('propertyType')}])
 export function useConfigurationPage(level:number,special?:string){
- const access=useQualityAccess(),targetLevel=ref(level),viewOnly=ref(false),kind=ref(special||'category'),projectId=ref<string>(),rows=ref<Configuration[]>([]),all=ref<Configuration[]>([]),loading=ref(false),saving=ref(false),error=ref(''),open=ref(false),current=ref(1),total=ref(0),name=ref('')
+ const access=useQualityAccess(),targetLevel=ref(level),viewOnly=ref(false),kind=ref(special||'category'),projectId=access.projectId,rows=ref<Configuration[]>([]),all=ref<Configuration[]>([]),loading=ref(false),saving=ref(false),error=ref(''),open=ref(false),current=ref(1),total=ref(0),name=ref('')
  const selectedKeys=ref<string[]>([]),lineIds=ref<string[]>([]),subjectIds=ref<string[]>([]),filterStatus=ref<number>(),filterSource=ref<number>(),businessTypeId=ref<string>(),frequency=ref<number>()
  const removeSelected=async()=>{try{await quality.deleteConfigs(selectedKeys.value,level===1);selectedKeys.value=[];await load()}catch(e){error.value=messageOf(e)}}
  const fresh=():Configuration=>({kind:kind.value,name:'',configLevel:targetLevel.value,projectId:targetLevel.value===2?projectId.value:undefined,status:1,sortOrder:0,data:{}})
@@ -26,6 +26,6 @@ export function useConfigurationPage(level:number,special?:string){
  const importTarget=ref('basic'),importing=ref(false)
  const importFile=async(file:File)=>{importing.value=true;error.value='';try{const result=await quality.import(importTarget.value,targetLevel.value,projectId.value,file,level===1) as {imported:number};message.success(qt('imported')+result.imported+qt('rows'));await load()}catch(e){error.value=messageOf(e)}finally{importing.value=false}return false}
  const downloadTemplate=async()=>{try{saveBlob(await quality.template(importTarget.value,targetLevel.value),qt('qualityImportTemplateXlsx'))}catch(e){error.value=messageOf(e)}}
- onMounted(async()=>{try{await access.loadAccess();await references();projectId.value=access.projects.value[0]?.id;await load()}catch(e){error.value=messageOf(e)}})
+ onMounted(async()=>{try{await access.loadAccess();await references();await load()}catch(e){error.value=messageOf(e)}})
  return {...access,lineIds,subjectIds,filterStatus,filterSource,businessTypeId,frequency,selectedKeys,removeSelected,targetLevel,viewOnly,canMutate,configKinds,kind,projectId,rows,all,loading,saving,error,open,current,total,name,form,load,edit,save,remove,options,parentKind,search,importTarget,importing,importFile,downloadTemplate}
 }

@@ -23,7 +23,8 @@ const other = { id: 'other-system', code: 'other-system', name: '其他系统', 
 test('菜单初始化保留系统根与原业务菜单，模块注册导航扩展', () => {
   assert.equal(definitions.length, 1)
   assert.equal(system.code, 'quality-inspection')
-  assert.ok(system.children.length)
+  assert.equal(system.children.length, 6)
+  assert.ok(system.children.every(menu => menu.parentId === system.id))
   const visit = items => items.flatMap(item => [item, ...visit(item.children || [])])
   const nodes = visit(definitions)
   assert.equal(new Set(nodes.map(item => item.id)).size, nodes.length)
