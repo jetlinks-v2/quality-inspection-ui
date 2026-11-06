@@ -6,7 +6,7 @@ import {useQualityAccess} from './useQualityAccess'
 
 /** 任务总表、条线和问题各自使用旧源码的统计时间及分母，筛选和导出共用同一组参数。 */
 export function useQualityReports(level=1){
- const access=useQualityAccess(),projectId=ref<string>(),businessTypeId=ref<string>(),businessTypes=ref<Configuration[]>([]),lineId=ref<string>(),startTime=ref<string>(),endTime=ref<string>(),group=ref('project'),rows=ref<ReportRow[]>([]),problems=ref<CheckRecord[]>([]),current=ref(1),total=ref(0),loading=ref(false),error=ref(''),selected=ref(''),detailOpen=ref(false),success=ref('')
+ const access=useQualityAccess(),projectId=access.projectId,businessTypeId=ref<string>(),businessTypes=ref<Configuration[]>([]),lineId=ref<string>(),startTime=ref<string>(),endTime=ref<string>(),group=ref('project'),rows=ref<ReportRow[]>([]),problems=ref<CheckRecord[]>([]),current=ref(1),total=ref(0),loading=ref(false),error=ref(''),selected=ref(''),detailOpen=ref(false),success=ref('')
  const filter=():ReportFilter=>({taskLevel:level,projectId:projectId.value,businessTypeId:businessTypeId.value,lineId:lineId.value,startTime:startTime.value?Number(startTime.value):undefined,endTime:endTime.value?Number(endTime.value):undefined})
  const query=():Query=>({terms:[{column:'taskLevel',value:level},...(projectId.value?[{column:'projectId',value:projectId.value}]:[])]})
  const recordQuery=():Query=>({pageIndex:current.value-1,pageSize:20,terms:[...(lineId.value?[{column:'subjectParentId',value:lineId.value}]:[]),...(businessTypeId.value?[{column:'taskId',termType:'quality-task',value:[{column:'businessTypeId',value:businessTypeId.value}]}]:[]),...(startTime.value?[{column:'completeTime',termType:'gte',value:Number(startTime.value)}]:[]),...(endTime.value?[{column:'completeTime',termType:'lte',value:Number(endTime.value)}]:[])]})

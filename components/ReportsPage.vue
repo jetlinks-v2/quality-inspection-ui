@@ -11,7 +11,7 @@ const rateFields=new Set(['totalRate','validRate','comprehensiveQualifiedRate','
   <template #extra><a-space><a-button @click="vm.load" :loading="vm.loading">{{qt('refresh')}}</a-button><a-button v-if="vm.can('quality-work-order','export')" @click="vm.exportRows">{{qt('exportCurrentReport')}}</a-button></a-space></template>
   <a-alert v-if="vm.error" :message="vm.error" type="error" show-icon /><a-alert v-if="vm.success" :message="vm.success" type="success" show-icon />
   <a-space wrap style="margin:16px 0">
-   <a-select v-model:value="vm.projectId" :options="vm.projects.map(p=>({value:p.id,label:p.name}))" allow-clear :placeholder="qt('allBusinessProjects')" style="width:230px" />
+   <a-select v-model:value="vm.projectId" show-search option-filter-prop="label" :options="vm.projects.map(p=>({value:p.id,label:p.name}))" allow-clear :placeholder="qt('allBusinessProjects')" style="width:230px" />
    <a-select v-if="level===1" v-model:value="vm.businessTypeId" :options="vm.businessTypes.map(p=>({value:p.id,label:p.name}))" allow-clear :placeholder="qt('propertyType')" style="width:180px" />
    <template v-if="vm.group!=='project'"><a-date-picker v-model:value="vm.startTime" value-format="x" show-time :placeholder="qt('inspectionStartTime')" /><a-date-picker v-model:value="vm.endTime" value-format="x" show-time :placeholder="qt('inspectionEndTime')" /></template>
    <a-button type="primary" @click="vm.search">{{qt('search')}}</a-button><a-button @click="vm.reset">{{qt('reset')}}</a-button>
