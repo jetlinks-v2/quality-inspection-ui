@@ -3,7 +3,7 @@ import {quality} from '../api/quality'
 import {messageOf,type Configuration,type Snapshot,type Task,type Person} from '../shared/types'
 import {useQualityAccess} from './useQualityAccess'
 export function useTaskPage(level:number){
- const access=useQualityAccess(),projectId=ref<string>(),rows=ref<Task[]>([]),templates=ref<Configuration[]>([]),loading=ref(false),saving=ref(false),error=ref(''),open=ref(false),current=ref(1),total=ref(0),name=ref(''),status=ref<number>(),readonly=ref(false),plan=ref<Awaited<ReturnType<typeof quality.schedules>>>([]),planOpen=ref(false)
+ const access=useQualityAccess(),projectId=access.projectId,rows=ref<Task[]>([]),templates=ref<Configuration[]>([]),loading=ref(false),saving=ref(false),error=ref(''),open=ref(false),current=ref(1),total=ref(0),name=ref(''),status=ref<number>(),readonly=ref(false),plan=ref<Awaited<ReturnType<typeof quality.schedules>>>([]),planOpen=ref(false)
  const selectedKeys=ref<string[]>([])
  const removeSelected=async()=>{try{await quality.deleteTasks(selectedKeys.value);selectedKeys.value=[];await load()}catch(e){error.value=messageOf(e)}}
  const fresh=():Task=>({taskName:'',taskLevel:level,taskType:level===1?1:2,projectId:projectId.value,templateId:'',lineAssignees:[],startTime:Date.now(),endTime:Date.now()+86400000,firstGenerateTime:Date.now(),reportDeadline:Date.now()+86400000,intervalValue:1,intervalUnit:3,inspectionFrequency:1,operationFrequency:1,scheduleRules:{dayTimes:['09:00'],weekTimes:[{weekDay:1,time:'09:00'}],monthDateTimes:[]},configItems:[]})
@@ -13,7 +13,10 @@ export function useTaskPage(level:number){
  watch([()=>form.projectId,()=>form.checkRole],()=>void loadCandidates())
  const query=()=>({pageIndex:current.value-1,pageSize:20,terms:[{column:'taskLevel',value:level},...(projectId.value?[{column:'projectId',value:projectId.value}]:[]),...(status.value!==undefined?[{column:'taskStatus',value:status.value}]:[]),...(name.value?[{column:'taskName',termType:'like',value:'%'+name.value+'%'}]:[])]})
  const load=async()=>{loading.value=true;error.value='';try{const page=await quality.tasks(query());rows.value=page.data;total.value=page.total}catch(e){error.value=messageOf(e)}finally{loading.value=false}}
- const start=async(row?:Task,view=false)=>{error.value='';try{templates.value=(await quality.configs({paging:false,terms:[{column:'kind',value:'template'},{column:'status',value:1},{column:'configLevel',value:level},...(level===2?[{column:'projectId',value:projectId.value}]:[])]})).data.filter(t=>t.data.templateType!==2);Object.keys(form).forEach(k=>delete (form as unknown as Record<string,unknown>)[k]);Object.assign(form,row?await quality.task(row.id!):fresh());readonly.value=view;open.value=true}catch(e){error.value=messageOf(e)}}
+ const loadTemplates=async()=>{templates.value=level===2&&!form.projectId?[]:(await quality.configs({paging:false,terms:[{column:'kind',value:'template'},{column:'status',value:1},{column:'configLevel',value:level},...(level===2?[{column:'projectId',value:form.projectId}]:[])]})).data.filter(t=>t.data.templateType!==2)}
+ watch(()=>form.projectId,async()=>{if(open.value&&!readonly.value){form.templateId='';form.lineAssignees=[];form.configItems=[];try{await loadTemplates()}catch(e){error.value=messageOf(e)}}})
+ const start=async(row?:Task,view=false)=>{error.value='';try{Object.keys(form).forEach(k=>delete (form as unknown as Record<string,unknown>)[k]);Object.assign(form,row?await quality.task(row.id!):fresh());readonly.value=view;await loadTemplates();open.value=true}catch(e){error.value=messageOf(e)}}
+
  const snapshots=computed<Snapshot[]>(()=>templates.value.find(t=>t.id===form.templateId)?.data.snapshot||form.templateSnapshot||[])
  const lines=computed(()=>[...new Map(snapshots.value.map(s=>[s.subjectParentId,{id:s.subjectParentId,name:s.subjectParentName||s.subjectParentId}])).values()])
  // 业态和作业维度跟随模板快照，任务不能另选与模板不一致的统计维度。

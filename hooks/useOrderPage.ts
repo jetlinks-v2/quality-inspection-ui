@@ -6,7 +6,7 @@ import {quality} from '../api/quality'
 import {messageOf,orderStates,type WorkOrder} from '../shared/types'
 import {useQualityAccess} from './useQualityAccess'
 export function useOrderPage(level:number){
- const access=useQualityAccess(),route=useRoute(),router=useRouter(),projectId=ref<string>(),status=ref<number>(),mode=ref('pool'),rows=ref<WorkOrder[]>([]),current=ref(1),total=ref(0),loading=ref(false),error=ref(''),selected=ref(''),detailOpen=ref(false)
+ const access=useQualityAccess(),route=useRoute(),router=useRouter(),projectId=access.projectId,status=ref<number>(),mode=ref('pool'),rows=ref<WorkOrder[]>([]),current=ref(1),total=ref(0),loading=ref(false),error=ref(''),selected=ref(''),detailOpen=ref(false)
  const fields=computed<ConditionFilterField[]>(()=>[{title:qt('taskName'),dataIndex:'taskName',search:{type:'string'}},{title:qt('orderNumber'),dataIndex:'taskCode',search:{type:'string'}},{title:qt('generationTime'),dataIndex:'scheduledTime',search:{type:'date'}},{title:qt('submissionTimeLimit'),dataIndex:'reportDeadline',search:{type:'date'}},{title:qt('rating'),dataIndex:'evaluationName',search:{type:'string'}}])
  const terms=ref<ConditionTerm[]>(decodeConditionFilterQuery(route.query.q,fields.value))
  const query=()=>({pageIndex:current.value-1,pageSize:20,terms:[{column:'taskLevel',value:level},...(projectId.value?[{column:'projectId',value:projectId.value}]:[]),...(status.value!==undefined?[{column:'workOrderStatus',value:status.value}]:[]),...buildQueryFilter(terms.value,fields.value).terms]})
