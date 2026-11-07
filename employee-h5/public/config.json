@@ -1,6 +1,5 @@
 {
   "applicationId": "",
-  "tenantDomain": "",
   "title": "品质核查",
   "allowedHostOrigins": [],
   "apiBase": "/api"

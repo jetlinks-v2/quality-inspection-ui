@@ -26,7 +26,9 @@ npm ci
 npm run build
 ```
 
-部署前填写 H5 `public/config.json` 的 `applicationId`、`tenantDomain` 和允许的宿主来源；API 使用同源 `/api` 代理到 Cloud 网关。PC 与 H5 共用同一品质应用和权限。不得将会话令牌或服务器凭证提交到仓库。
+部署前填写 H5 `public/config.json` 的 `applicationId` 和允许的宿主来源；API 使用同源 `/api` 代理到 Cloud 网关。PC 与 H5 共用同一品质应用和权限。不得将会话令牌或服务器凭证提交到仓库。
+
+H5 登录与报事报修员工端一致，只提供“项目编码 + 应用账号 + 密码”。项目编码由用户手动填写，不从站点配置预填；完整应用账号原样提交到运行端 `/authorize/login`，不自动拼接 `@项目编码`。密码加密和安全验证复用运行端配置，登录请求不携带旧会话、租户或应用 Scope。取得临时 token 后，以输入的项目编码和站点品质应用 ID 调用 `/authorize/me`，具备 `quality-work-order` 查询权限后才保存标签页会话。旧版 SaaS 员工登录缓存会清理，更新后须重新登录；站点仍对应一个品质应用，不根据项目编码自动切换应用。
 
 应用菜单、模板和资产策略位于后端 `deploy/quality/`。配置、核查、整改、复验、统计导出和转报修均使用真实接口。设备维保抽查本轮延期。
 
