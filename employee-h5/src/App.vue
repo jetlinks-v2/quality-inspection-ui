@@ -1,20 +1,17 @@
 <script setup lang="ts">
 import {computed} from 'vue'
 import {useRoute,useRouter} from 'vue-router'
-import {HomeOutlined,FileSearchOutlined,ToolOutlined,SafetyCertificateOutlined,UserOutlined,LeftOutlined} from '@ant-design/icons-vue'
+import {HomeOutlined,CarryOutOutlined,SafetyCertificateOutlined,UserOutlined,LeftOutlined} from '@ant-design/icons-vue'
 import {qualityText as qt} from '../../shared/i18n'
-import {qualityModes} from './services/navigation'
 
 const route=useRoute(),router=useRouter()
 const login=computed(()=>route.path==='/login'),home=computed(()=>route.path==='/')
 const detail=computed(()=>!!route.params.id)
-const title=computed(()=>detail.value?qt('h5OrderDetail'):route.path==='/profile'?qt('h5MyAccount'):qualityModes.find(item=>item.value===route.query.mode)?.label||qt('pendingInspection'))
+const title=computed(()=>detail.value?qt('h5OrderDetail'):route.path==='/profile'?qt('h5MyAccount'):qt('h5MyOrders'))
 const navigation=[
- {path:'/',label:qt('h5Workspace'),icon:HomeOutlined},
- {path:'/orders?mode=inspect',label:qt('pendingInspection'),icon:FileSearchOutlined,mode:'inspect'},
- {path:'/orders?mode=rectify',label:qt('pendingRectification'),icon:ToolOutlined,mode:'rectify'},
- {path:'/orders?mode=review',label:qt('pendingReview'),icon:SafetyCertificateOutlined,mode:'review'},
- {path:'/profile',label:qt('h5Mine'),icon:UserOutlined}
+ {path:'/',activePath:'/',label:qt('h5Workspace'),icon:HomeOutlined},
+ {path:'/orders?mode=inspect',activePath:'/orders',label:qt('h5MyOrders'),icon:CarryOutOutlined},
+ {path:'/profile',activePath:'/profile',label:qt('h5Mine'),icon:UserOutlined}
 ]
 const back=()=>{if(history.state?.back)router.back();else void router.replace('/')}
 </script>
@@ -30,7 +27,7 @@ const back=()=>{if(history.state?.back)router.back();else void router.replace('/
   </header>
   <main><router-view /></main>
   <nav v-if="!login&&!detail" class="bottom-nav" :aria-label="qt('h5MainNavigation')">
-   <router-link v-for="item in navigation" :key="item.path" :to="item.path" :class="{active:item.mode?route.path==='/orders'&&String(route.query.mode||'inspect')===item.mode:route.path===item.path}" :aria-current="(item.mode?route.path==='/orders'&&String(route.query.mode||'inspect')===item.mode:route.path===item.path)?'page':undefined">
+   <router-link v-for="item in navigation" :key="item.path" :to="item.path" :class="{active:route.path===item.activePath}" :aria-current="route.path===item.activePath?'page':undefined">
     <component :is="item.icon" aria-hidden="true" /><span>{{item.label}}</span>
    </router-link>
   </nav>
