@@ -12,12 +12,11 @@ const rateFields=new Set(['totalRate','validRate','comprehensiveQualifiedRate','
   <a-alert v-if="vm.error" :message="vm.error" type="error" show-icon /><a-alert v-if="vm.success" :message="vm.success" type="success" show-icon />
   <a-space wrap style="margin:16px 0">
    <a-select v-model:value="vm.projectId" show-search option-filter-prop="label" :options="vm.projects.map(p=>({value:p.id,label:p.name}))" allow-clear :placeholder="qt('allBusinessProjects')" style="width:230px" />
-   <a-select v-if="level===1" v-model:value="vm.businessTypeId" :options="vm.businessTypes.map(p=>({value:p.id,label:p.name}))" allow-clear :placeholder="qt('propertyType')" style="width:180px" />
    <template v-if="vm.group!=='project'"><a-date-picker v-model:value="vm.startTime" value-format="x" show-time :placeholder="qt('inspectionStartTime')" /><a-date-picker v-model:value="vm.endTime" value-format="x" show-time :placeholder="qt('inspectionEndTime')" /></template>
    <a-button type="primary" @click="vm.search">{{qt('search')}}</a-button><a-button @click="vm.reset">{{qt('reset')}}</a-button>
   </a-space>
   <a-tabs v-model:activeKey="vm.group"><a-tab-pane key="project" :tab="qt('taskStatistics')" /><a-tab-pane key="line" :tab="qt('lineStatistics')" /><a-tab-pane key="problems" :tab="qt('issueDetails')" /></a-tabs>
-  <a-table v-if="vm.group!=='problems'" :data-source="vm.rows" :columns="vm.columns" :loading="vm.loading" :row-key="(r:Record<string,unknown>)=>String(r.businessTypeId||r.projectId||r.lineId)" :scroll="{x:'max-content'}">
+  <a-table v-if="vm.group!=='problems'" :data-source="vm.rows" :columns="vm.columns" :loading="vm.loading" :row-key="(r:Record<string,unknown>)=>String(r.projectId||r.lineId)" :scroll="{x:'max-content'}">
    <template #bodyCell="{column,record,text}"><template v-if="column.key==='actions'"><a-button type="link" @click="vm.drill(record)">{{vm.group==='project'?qt('lineStatistics'):qt('issueDetails')}}</a-button></template><template v-else-if="rateFields.has(column.dataIndex)">{{vm.ratio(text)}}</template></template>
   </a-table>
   <a-table v-else :data-source="vm.problems" :loading="vm.loading" row-key="id" :pagination="{current:vm.current,total:vm.total,pageSize:20,showSizeChanger:false}" :scroll="{x:'max-content'}" @change="(p:{current?:number})=>{vm.current=p.current||1;vm.load()}">

@@ -13,14 +13,16 @@ export function useTaskPage(level:number){
  watch([()=>form.projectId,()=>form.checkRole],()=>void loadCandidates())
  const query=()=>({pageIndex:current.value-1,pageSize:20,terms:[{column:'taskLevel',value:level},...(projectId.value?[{column:'projectId',value:projectId.value}]:[]),...(status.value!==undefined?[{column:'taskStatus',value:status.value}]:[]),...(name.value?[{column:'taskName',termType:'like',value:'%'+name.value+'%'}]:[])]})
  const load=async()=>{loading.value=true;error.value='';try{const page=await quality.tasks(query());rows.value=page.data;total.value=page.total}catch(e){error.value=messageOf(e)}finally{loading.value=false}}
- const loadTemplates=async()=>{templates.value=level===2&&!form.projectId?[]:(await quality.configs({paging:false,terms:[{column:'kind',value:'template'},{column:'status',value:1},{column:'configLevel',value:level},...(level===2?[{column:'projectId',value:form.projectId}]:[])]})).data.filter(t=>t.data.templateType!==2)}
+ let templateRevision=0
+ // 快速切换项目时丢弃旧请求，避免旧项目模板覆盖当前选择。
+ const loadTemplates=async()=>{const revision=++templateRevision,project=form.projectId;templates.value=[];if(!project)return;const page=await quality.configs({paging:false,terms:[{column:'kind',value:'template'},{column:'status',value:1},{column:'configLevel',value:level},{column:'projectId',value:project}]});if(revision===templateRevision)templates.value=page.data.filter(t=>t.data.templateType!==2)}
  watch(()=>form.projectId,async()=>{if(open.value&&!readonly.value){form.templateId='';form.lineAssignees=[];form.configItems=[];try{await loadTemplates()}catch(e){error.value=messageOf(e)}}})
  const start=async(row?:Task,view=false)=>{error.value='';try{Object.keys(form).forEach(k=>delete (form as unknown as Record<string,unknown>)[k]);Object.assign(form,row?await quality.task(row.id!):fresh());readonly.value=view;await loadTemplates();open.value=true}catch(e){error.value=messageOf(e)}}
 
  const snapshots=computed<Snapshot[]>(()=>templates.value.find(t=>t.id===form.templateId)?.data.snapshot||form.templateSnapshot||[])
  const lines=computed(()=>[...new Map(snapshots.value.map(s=>[s.subjectParentId,{id:s.subjectParentId,name:s.subjectParentName||s.subjectParentId}])).values()])
- // 业态和作业维度跟随模板快照，任务不能另选与模板不一致的统计维度。
- const selectTemplate=()=>{const template=templates.value.find(t=>t.id===form.templateId);form.businessTypeId=template?.data.businessTypeId;form.businessTypeName=String(template?.data.businessTypeName||'');if(level===2)form.inspectionFrequency=template?.data.inspectionFrequency;form.lineAssignees=lines.value.map(l=>({subjectParentId:l.id,inspectorId:''}));form.configItems=snapshots.value.map(s=>({configId:s.configId,deductionStandard:s.deductionStandard||''}))}
+ // 两个层级只加载当前项目模板，作业频次与检查项跟随模板快照。
+ const selectTemplate=()=>{const template=templates.value.find(t=>t.id===form.templateId);if(level===2)form.inspectionFrequency=template?.data.inspectionFrequency;form.lineAssignees=lines.value.map(l=>({subjectParentId:l.id,inspectorId:''}));form.configItems=snapshots.value.map(s=>({configId:s.configId,deductionStandard:s.deductionStandard||''}))}
  const setAssignee=(line:string,user:unknown)=>{const row=form.lineAssignees.find(a=>a.subjectParentId===line);if(row)row.inspectorId=String(user||'')}
  const save=async()=>{if(saving.value)return;saving.value=true;error.value='';try{await quality.saveTask(form);open.value=false;await load()}catch(e){error.value=messageOf(e)}finally{saving.value=false}}
  const act=async(row:Task,action:string)=>{saving.value=true;error.value='';try{if(action==='delete')await quality.deleteTask(row.id!);else await quality.taskAction(row.id!,action);await load()}catch(e){error.value=messageOf(e)}finally{saving.value=false}}
