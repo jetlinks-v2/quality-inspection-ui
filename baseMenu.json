@@ -41,7 +41,10 @@
             "en": "Quality overview"
           }
         },
-        "parentId": "quality-inspection"
+        "parentId": "quality-inspection",
+        "showPage": [
+          "quality-work-order"
+        ]
       },
       {
         "id": "quality-CompanyBasic",
@@ -121,7 +124,10 @@
                 "en": "Company configuration"
               }
             },
-            "parentId": "quality-CompanyBasic"
+            "parentId": "quality-CompanyBasic",
+            "showPage": [
+              "quality-configuration"
+            ]
           },
           {
             "id": "quality-Template-Company",
@@ -182,7 +188,10 @@
                 "en": "Company task templates"
               }
             },
-            "parentId": "quality-CompanyBasic"
+            "parentId": "quality-CompanyBasic",
+            "showPage": [
+              "quality-configuration"
+            ]
           },
           {
             "id": "quality-Evaluation",
@@ -243,7 +252,10 @@
                 "en": "Score ratings"
               }
             },
-            "parentId": "quality-CompanyBasic"
+            "parentId": "quality-CompanyBasic",
+            "showPage": [
+              "quality-configuration"
+            ]
           }
         ]
       },
@@ -359,7 +371,10 @@
                 "en": "Company inspection tasks"
               }
             },
-            "parentId": "quality-CompanyInspection"
+            "parentId": "quality-CompanyInspection",
+            "showPage": [
+              "quality-task"
+            ]
           },
           {
             "id": "quality-Records-Company",
@@ -505,7 +520,10 @@
                 "en": "Company inspection records"
               }
             },
-            "parentId": "quality-CompanyInspection"
+            "parentId": "quality-CompanyInspection",
+            "showPage": [
+              "quality-work-order"
+            ]
           },
           {
             "id": "quality-Reports-Company",
@@ -549,7 +567,10 @@
                 "en": "Company reports"
               }
             },
-            "parentId": "quality-CompanyInspection"
+            "parentId": "quality-CompanyInspection",
+            "showPage": [
+              "quality-work-order"
+            ]
           }
         ]
       },
@@ -631,7 +652,10 @@
                 "en": "Project configuration"
               }
             },
-            "parentId": "quality-ProjectBasic"
+            "parentId": "quality-ProjectBasic",
+            "showPage": [
+              "quality-configuration"
+            ]
           },
           {
             "id": "quality-Template-Project",
@@ -692,7 +716,10 @@
                 "en": "Project task templates"
               }
             },
-            "parentId": "quality-ProjectBasic"
+            "parentId": "quality-ProjectBasic",
+            "showPage": [
+              "quality-configuration"
+            ]
           }
         ]
       },
@@ -808,7 +835,10 @@
                 "en": "Project inspection tasks"
               }
             },
-            "parentId": "quality-ProjectInspection"
+            "parentId": "quality-ProjectInspection",
+            "showPage": [
+              "quality-task"
+            ]
           },
           {
             "id": "quality-Records-Project",
@@ -954,7 +984,10 @@
                 "en": "Project inspection records"
               }
             },
-            "parentId": "quality-ProjectInspection"
+            "parentId": "quality-ProjectInspection",
+            "showPage": [
+              "quality-work-order"
+            ]
           },
           {
             "id": "quality-Reports-Project",
@@ -998,7 +1031,10 @@
                 "en": "Project reports"
               }
             },
-            "parentId": "quality-ProjectInspection"
+            "parentId": "quality-ProjectInspection",
+            "showPage": [
+              "quality-work-order"
+            ]
           }
         ]
       },
@@ -1063,7 +1099,10 @@
                 "en": "Application settings"
               }
             },
-            "parentId": "quality-Application"
+            "parentId": "quality-Application",
+            "showPage": [
+              "quality-configuration"
+            ]
           },
           {
             "id": "quality-Exports",
@@ -1107,7 +1146,10 @@
                 "en": "Export management"
               }
             },
-            "parentId": "quality-Application"
+            "parentId": "quality-Application",
+            "showPage": [
+              "quality-work-order"
+            ]
           }
         ]
       }
