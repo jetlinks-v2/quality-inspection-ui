@@ -20,7 +20,6 @@
   ],
   "exclude": [
     "dist",
-    "node_modules",
-    "employee-h5"
+    "node_modules"
   ]
 }

@@ -1,6 +1,6 @@
 # 品质核查前端
 
-根目录为 Cloud PC 品质模块，`employee-h5/` 为独立员工 H5。后端为 `property-management` 的 `property-quality-service`，通过网关提供 `/quality/**`；公共基础管理由 `property-base-ui` 提供，后端共用 `/property/**` 基础档案。
+本仓库仅维护 Cloud PC 品质模块。后端为 `property-management` 的 `property-quality-service`，通过网关提供 `/quality/**`；公共基础管理由 `property-base-ui` 提供，后端共用 `/property/**` 基础档案。
 
 项目权限配置以“品质核查”（`quality-inspection`）为根节点。独立应用通过宿主已有的 `getMenuFilters` 扩展展开这一层，只展示服务端已授权的子菜单；原子菜单 ID、按钮和权限标识保持不变，不修改 SaaS 平台源码。
 
@@ -18,17 +18,7 @@ pnpm -F jetlinks-web-core build -- --module-name quality-inspection-ui,property-
 
 构建输出为宿主 `dist/` 完整站点；登录、应用上下文和菜单复用 SaaS。仅指定 `quality-inspection-ui` 会生成模块资源，不是完整站点。
 
-H5 独立构建：
-
-```sh
-cd employee-h5
-npm ci
-npm run build
-```
-
-部署前填写 H5 `public/config.json` 的 `applicationId` 和允许的宿主来源；API 使用同源 `/api` 代理到 Cloud 网关。PC 与 H5 共用同一品质应用和权限。不得将会话令牌或服务器凭证提交到仓库。
-
-H5 登录与报事报修员工端一致，只提供“项目编码 + 应用账号 + 密码”。项目编码由用户手动填写，不从站点配置预填；完整应用账号原样提交到运行端 `/authorize/login`，不自动拼接 `@项目编码`。密码加密和安全验证复用运行端配置，登录请求不携带旧会话、租户或应用 Scope。取得临时 token 后，以输入的项目编码和站点品质应用 ID 调用 `/authorize/me`，具备 `quality-work-order` 查询权限后才保存标签页会话。旧版 SaaS 员工登录缓存会清理，更新后须重新登录；站点仍对应一个品质应用，不根据项目编码自动切换应用。
+H5 已分仓至 [quality-inspection-wx-ui](https://github.com/jetlinks-v2/quality-inspection-wx-ui)，采用 Vant 4，保留账号密码独立登录。正式版本由移动主工程 `cloud.jetlinks.mobile` 执行 `pnpm build:app quality-app`，真实模板编码为 `QualityInspection`，授权上下文由外壳提供。
 
 应用菜单、模板和资产策略位于后端 `deploy/quality/`。配置、核查、整改、复验、统计导出和转报修均使用真实接口。设备维保抽查本轮延期。
 
@@ -49,3 +39,7 @@ H5 登录与报事报修员工端一致，只提供“项目编码 + 应用账�
 已有环境须同步后端 deploy/quality 中的菜单层级以及模板、套餐、订阅和角色快照；仅部署前端不会更新持久化菜单。
 
 公司条线、科目和检查要求在当前品质应用内共用；检查内容配置与任务模板直接选择基础档案项目，不维护独立业态。任务只加载同项目模板，复制模板切换项目后须重新选择检查项；公司与项目报表均按真实项目筛选、钻取和导出。既有配置的数据迁移按后端 `deploy/quality/README.md` 的项目绑定规则执行。
+
+## 员工 H5
+
+独立仓库：[quality-inspection-wx-ui](https://github.com/jetlinks-v2/quality-inspection-wx-ui)，使用 Vant 4；统一外壳构建命令为 `pnpm build:app quality-app`，模板编码 `QualityInspection`。PC 共享定义仍保留在 `shared/`。

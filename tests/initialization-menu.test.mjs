@@ -2,10 +2,13 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import test from 'node:test'
+import {resolve} from 'node:path'
+import {fileURLToPath} from 'node:url'
 
-const require = createRequire(new URL('../../../package.json', import.meta.url))
+const hostRoot = process.env.JETLINKS_UI_HOST_ROOT || fileURLToPath(new URL('../../../', import.meta.url))
+const require = createRequire(resolve(hostRoot,'package.json'))
 const { transformSync } = require('esbuild')
-const core = readFileSync(new URL('../../../jetlinks-web-core/src/views/init-home/Menu/index.vue', import.meta.url), 'utf8')
+const core = readFileSync(resolve(hostRoot,'jetlinks-web-core/src/views/init-home/Menu/index.vue'), 'utf8')
 const source = core.match(/const filterMenuByPermission = \([\s\S]*?\n};/)[0]
 const code = transformSync(source.replace('const filterMenuByPermission', 'export const filterMenuByPermission'), {
   loader: 'ts', format: 'cjs',
