@@ -16,6 +16,7 @@ export function useQualityHome(){
  const seriesNames=computed(()=>[qt('completionRate'),qt('qualificationRate')])
  const trendOption=computed<EChartsOption>(()=>({tooltip:{trigger:'axis'},legend:{data:seriesNames.value},grid:{left:48,right:24,bottom:48},xAxis:{type:'category',data:trend.value?.xAxis||[]},yAxis:{type:'value',axisLabel:{formatter:'{value}%'}},series:[{name:seriesNames.value[0],type:'line',data:trend.value?.taskCompleteRateSeries||[]},{name:seriesNames.value[1],type:'line',data:trend.value?.qualifiedRateSeries||[]}]}))
  // 横向展示完整项目名，并为每组双条形预留高度，避免项目增多后柱体被压成细线。
+ const compareRows=computed(()=>[...compare.value].sort((a,b)=>Number(b.taskCompleteRate!=null||b.qualifiedRate!=null)-Number(a.taskCompleteRate!=null||a.qualifiedRate!=null)))
  const compareHeight=computed(()=>Math.max(380,compare.value.length*72+80))
  const compareOption=computed<EChartsOption>(()=>({
   color:['#5470c6','#91cc75'],
@@ -23,12 +24,12 @@ export function useQualityHome(){
   legend:{data:seriesNames.value},
   grid:{left:8,right:56,top:48,bottom:24,containLabel:true},
   xAxis:{type:'value',min:0,max:100,axisLabel:{formatter:'{value}%'}},
-  yAxis:{type:'category',inverse:true,data:compare.value.map(r=>r.projectName),axisTick:{show:false},axisLine:{show:false},axisLabel:{width:128,overflow:'break',interval:0}},
+  yAxis:{type:'category',inverse:true,data:compareRows.value.map(r=>r.projectName),axisTick:{show:false},axisLine:{show:false},axisLabel:{width:128,overflow:'break',interval:0}},
   series:seriesNames.value.map((name,index)=>({
    name,type:'bar',barWidth:16,barGap:'35%',
    itemStyle:{borderRadius:[0,4,4,0]},
    label:{show:true,position:'right',formatter:'{c}%'},
-   data:compare.value.map(r=>index===0?r.taskCompleteRate:r.qualifiedRate),
+   data:compareRows.value.map(r=>index===0?r.taskCompleteRate:r.qualifiedRate),
   })),
  }))
  watch(mode,()=>void load())
