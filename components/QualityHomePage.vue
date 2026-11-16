@@ -25,7 +25,7 @@ const vm=reactive(useQualityHome())
      <a-space wrap style="margin-bottom:16px"><span>{{qt('shouldComplete')}} {{vm.trend?.shouldCompleteCount||0}}</span><span>{{qt('actualComplete')}} {{vm.trend?.actualCompleteCount||0}}</span><span>{{qt('completionRate')}} {{vm.percent(vm.trend?.taskCompleteRate)}}</span><span>{{qt('qualificationRate')}} {{vm.percent(vm.trend?.qualifiedRate)}}</span></a-space>
      <div style="height:340px"><JEcharts v-if="vm.trend" :option="vm.trendOption" /><a-empty v-else /></div>
     </a-card></a-col>
-    <a-col :xs="24" :xl="10"><a-card :title="qt('projectComparison')"><div style="height:380px"><JEcharts v-if="vm.compare.length" :option="vm.compareOption" /><a-empty v-else /></div></a-card></a-col>
+    <a-col :xs="24" :xl="10"><a-card :title="qt('projectComparison')"><div style="height:380px;overflow-y:auto"><div v-if="vm.compare.length" :style="{height:`${vm.compareHeight}px`}"><JEcharts :option="vm.compareOption" /></div><a-empty v-else /></div></a-card></a-col>
    </a-row>
   </a-spin>
  </a-card>

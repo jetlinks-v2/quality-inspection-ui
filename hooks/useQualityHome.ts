@@ -15,8 +15,23 @@ export function useQualityHome(){
  const percent=(value:number|null|undefined)=>value==null?'—':value+'%'
  const seriesNames=computed(()=>[qt('completionRate'),qt('qualificationRate')])
  const trendOption=computed<EChartsOption>(()=>({tooltip:{trigger:'axis'},legend:{data:seriesNames.value},grid:{left:48,right:24,bottom:48},xAxis:{type:'category',data:trend.value?.xAxis||[]},yAxis:{type:'value',axisLabel:{formatter:'{value}%'}},series:[{name:seriesNames.value[0],type:'line',data:trend.value?.taskCompleteRateSeries||[]},{name:seriesNames.value[1],type:'line',data:trend.value?.qualifiedRateSeries||[]}]}))
- const compareOption=computed<EChartsOption>(()=>({tooltip:{trigger:'axis'},legend:{data:seriesNames.value},grid:{left:48,right:24,bottom:70},xAxis:{type:'category',data:compare.value.map(r=>r.projectName),axisLabel:{rotate:20}},yAxis:{type:'value',axisLabel:{formatter:'{value}%'}},series:[{name:seriesNames.value[0],type:'bar',data:compare.value.map(r=>r.taskCompleteRate)},{name:seriesNames.value[1],type:'bar',data:compare.value.map(r=>r.qualifiedRate)}]}))
+ // 横向展示完整项目名，并为每组双条形预留高度，避免项目增多后柱体被压成细线。
+ const compareHeight=computed(()=>Math.max(380,compare.value.length*72+80))
+ const compareOption=computed<EChartsOption>(()=>({
+  color:['#5470c6','#91cc75'],
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'},valueFormatter:value=>value==null?'—':`${value}%`},
+  legend:{data:seriesNames.value},
+  grid:{left:8,right:56,top:48,bottom:24,containLabel:true},
+  xAxis:{type:'value',min:0,max:100,axisLabel:{formatter:'{value}%'}},
+  yAxis:{type:'category',inverse:true,data:compare.value.map(r=>r.projectName),axisTick:{show:false},axisLine:{show:false},axisLabel:{width:128,overflow:'break',interval:0}},
+  series:seriesNames.value.map((name,index)=>({
+   name,type:'bar',barWidth:16,barGap:'35%',
+   itemStyle:{borderRadius:[0,4,4,0]},
+   label:{show:true,position:'right',formatter:'{c}%'},
+   data:compare.value.map(r=>index===0?r.taskCompleteRate:r.qualifiedRate),
+  })),
+ }))
  watch(mode,()=>void load())
  onMounted(async()=>{try{await access.loadAccess();await load()}catch(e){error.value=messageOf(e)}})
- return {...access,projectId,dates,mode,overview,trend,compare,loading,error,load,percent,trendOption,compareOption}
+ return {...access,projectId,dates,mode,overview,trend,compare,loading,error,load,percent,trendOption,compareOption,compareHeight}
 }
